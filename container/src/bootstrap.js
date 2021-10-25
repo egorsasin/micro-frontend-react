@@ -1,4 +1,5 @@
-import "mf1/index";
-import "mf2/index";
+import ReactDOM from "react-dom";
+import React from "react";
+import App from "./App";
 
-console.log("Container");
+ReactDOM.render(<App />, document.getElementById("root"));
