@@ -6,12 +6,24 @@ module.exports = {
   devServer: {
     port: 8081,
   },
+  module: {
+    rules: [
+      {
+        test: /\.js?$/,
+        exclude: /node_modules/,
+        loader: "babel-loader",
+        options: {
+          presets: ["@babel/preset-env", "@babel/preset-react"],
+        },
+      },
+    ],
+  },
   plugins: [
     new ModuleFederationPlugin({
       name: "micro1",
       filename: "remoteEntry.js",
       exposes: {
-        "./index": "./src/index",
+        "./Counter": "./src/components/Counter",
       },
     }),
     new HtmlWebpackPlugin({
