@@ -1,8 +1,10 @@
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
+
+const dependencies = require('./package.json').dependencies;
 
 module.exports = {
-  mode: "development",
+  mode: 'development',
   devServer: {
     port: 8080,
   },
@@ -17,11 +19,11 @@ module.exports = {
             Babel will not compile any files in this directory*/
         exclude: /node_modules/,
         // To Use babel Loader
-        loader: "babel-loader",
+        loader: 'babel-loader',
         options: {
           presets: [
-            "@babel/preset-env" /* to transfer any advansed ES to ES5 */,
-            "@babel/preset-react",
+            '@babel/preset-env' /* to transfer any advansed ES to ES5 */,
+            '@babel/preset-react',
           ], // to compile react to ES5
         },
       },
@@ -29,17 +31,28 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: "container",
+      name: 'container',
       remotes: {
-        mf1: "micro1@http://localhost:8081/remoteEntry.js",
-        mf2: "micro2@http://localhost:8082/remoteEntry.js",
+        mf1: 'micro1@http://localhost:8081/remoteEntry.js',
+        mf2: 'micro2@http://localhost:8082/remoteEntry.js',
       },
-      // exposes: {
-      //   "./Wrapper": "./src/components/Wrapper",
-      // },
+      shared: {
+        react: {
+          singleton: true,
+          version: dependencies['react'],
+        },
+        'react-dom': {
+          singleton: true,
+          version: dependencies['react-dom'],
+        },
+        'react-redux': {
+          singleton: true,
+          version: dependencies['react-redux'],
+        },
+      },
     }),
     new HtmlWebpackPlugin({
-      template: "./public/index.html",
+      template: './public/index.html',
     }),
   ],
 };

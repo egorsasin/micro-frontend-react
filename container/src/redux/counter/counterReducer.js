@@ -1,4 +1,4 @@
-import { INCREASE_COUNTER } from "./counterTypes";
+import { INCREASE_COUNTER } from './counterTypes';
 
 const initialState = {
   count: 0,

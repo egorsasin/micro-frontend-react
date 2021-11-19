@@ -1,1 +1,1 @@
-export { increaseCounter } from "./counter/counterActions";
+export { increaseCounter } from './counter/counterActions';

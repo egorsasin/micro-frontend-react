@@ -1,4 +1,4 @@
-import { INCREASE_COUNTER } from "./counterTypes";
+import { INCREASE_COUNTER } from './counterTypes';
 
 export const increaseCounter = (number = 1) => {
   return {
